@@ -3,12 +3,15 @@ import CheckIcon from './icons/CheckIcon';
 import CrossIcon from './icons/CrossIcon';
 import CalenderIcon from './icons/CalenderIcon';
 import { useState } from 'react';
+import { todoDeleted } from '@/app/features/todo/todoSlice';
+import { useDispatch } from 'react-redux';
 
 type Todo = { id: number; name: string };
 type TodoItemProps = { todo: Todo };
 
 const TodoItem = ({ todo }: TodoItemProps) => {
   const [done, setDone] = useState(false)
+  const dispatch = useDispatch();
   return (
     <div className="mt-2 flex justify-between">
         <div className={`bg-[#FFECA4] p-2 px-6 rounded-full justify-between w-full flex h-12 font-20px ${done?"line-through":""}`}>
@@ -25,7 +28,9 @@ const TodoItem = ({ todo }: TodoItemProps) => {
         </div>
 
         <div className='flex gap-4 ml-3 items-center'>
-          <button className='bg-[#FF8282]  w-8 h-8 p-2 rounded-full cursor-pointer'>
+          <button className='bg-[#FF8282]  w-8 h-8 p-2 rounded-full cursor-pointer'
+          onClick={()=>dispatch(todoDeleted(todo.id))}
+          >
             <CrossIcon/>
           </button>
           <button className='bg-[#C3FFAD]  w-10 h-10 p-2 rounded-full cursor-pointer items-center 
