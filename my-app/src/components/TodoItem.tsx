@@ -2,14 +2,16 @@ import React from 'react'
 import CheckIcon from './icons/CheckIcon';
 import CrossIcon from './icons/CrossIcon';
 import CalenderIcon from './icons/CalenderIcon';
+import { useState } from 'react';
 
 type Todo = { id: number; name: string };
 type TodoItemProps = { todo: Todo };
 
 const TodoItem = ({ todo }: TodoItemProps) => {
+  const [done, setDone] = useState(false)
   return (
     <div className="mt-2 flex justify-between">
-        <div className='bg-[#FFECA4] p-2 px-6 rounded-full justify-between w-full flex h-12 font-20px'>
+        <div className={`bg-[#FFECA4] p-2 px-6 rounded-full justify-between w-full flex h-12 font-20px ${done?"line-through":""}`}>
           {todo.name}
           <div className='flex justify-between w-1/4 items-center pl-8'>
             <button className='w-4 h-4 bg-red-500 rounded-full'></button>
@@ -26,7 +28,9 @@ const TodoItem = ({ todo }: TodoItemProps) => {
           <button className='bg-[#FF8282]  w-8 h-8 p-2 rounded-full cursor-pointer'>
             <CrossIcon/>
           </button>
-          <button className='bg-[#C3FFAD]  w-10 h-10 p-2 rounded-full cursor-pointer items-center '>
+          <button className='bg-[#C3FFAD]  w-10 h-10 p-2 rounded-full cursor-pointer items-center 
+          '
+          onClick={() => setDone(!done)}>
             <CheckIcon/> 
           </button>
         </div>   
